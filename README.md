@@ -1,7 +1,7 @@
 # IHM robot nettoyeur de plan d'eau
 
 Ceci est un projet de SI de niveau 1ère.
-Ce programme permet d'interagir avec un ESP32 
+Ce programme permet d'interagir avec un ESP32 depuis le navigateur web d'une autre machine.
 
 Dernière màj (v0.4): *5 mars 2020*
 
