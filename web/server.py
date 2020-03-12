@@ -1,5 +1,6 @@
 import socket
 import time
+import hardware.motor
 
 TAG = "[web.server] > "
 
@@ -28,8 +29,38 @@ class WebServer:
         clientSocket, _ = self.socket.accept()
         request = self.parseRequest(clientSocket)
         data = self.parseData(request)
-        file = open('/web/interface/index.html')
-        clientSocket.send(self.generateHTTP200Response(file.read()))
+        if len(data) == 0:
+            file = open('/web/interface/index.html')
+            clientSocket.send(self.generateHTTP200ResponseHTML(file.read()))
+        else:
+            prevButtonState = hardware.motor.getStatus()
+            if data[0] == "FWD":
+                buttonState = hardware.motor.fwd()
+            elif data[0] == "BWD":
+                buttonState = hardware.motor.bwd()
+            elif data[0] == "LEFT":
+                buttonState = hardware.motor.left()
+            elif data[0] == "RIGHT":
+                buttonState = hardware.motor.right()
+            elif data[0] == "STOP":
+                buttonState = hardware.motor.stop()
+            else:
+                pass
+
+
+            if (buttonState != prevButtonState):
+                json = """{
+                    "success": true,
+                    "error": null,
+                    "status": {
+                        "FWD": """ + buttonState.fwd + """,
+                        "BWD": """ + buttonState.bwd + """,
+                        "RIGHT": """ + buttonState.right + """,
+                        "LEFT": """ + buttonState.left + """,
+                        "STOP": """ + buttonState.stop + """
+                    }
+                }"""
+            clientSocket.send(self.generateHTTP200ResponseJSON(json))
         clientSocket.close()
     
     def parseRequest(self, cSocket):
@@ -62,6 +93,9 @@ class WebServer:
                     data[d.split("=")[0]] = d.split("=")[1]
         return data
         
-    def generateHTTP200Response(self, html):
+    def generateHTTP200ResponseHMTL(self, html):
         return 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n' + html + "\n"
+
+    def generateHTTP200ResponseJSON(self, json):
+        return 'HTTP/1.1 200 OK\r\nContent-Type: text/json\r\n\r\n' + json + "\n"
 

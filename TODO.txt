@@ -1,0 +1,19 @@
+|   | ^ |   |      |     | FWD |     |
+| < |   | > |  =>  |LEFT |STOP |RIGHT|
+|   | v |   |      |     | BWD |     |
+
+Quand on appuie sur un des 4 boutons "directionnels", on fait +1/5 (jusqu'à 5) puis on reset qd on appuie sur STOP
+
+on gère la vitesse entre 0 et 255:   0-126 -> marche arrière
+                                       127 -> arret
+                                   128-255 -> marche avant
+
+pour tourner, on doit ralentir un des deux moteur, et on doit repecter la vitesse max avec l'autre,
+vitesse max définie par l'utilisateur
+vitesse max [m.s^-1] = omega [rad.s^-1] * rayon [m]
+d'où
+vitesse angulaire (omega) = vitesse max / rayon
+
+on doit fournir à l'équipe moteur les deux données suivantes:
+ - vitesse moteur 1 [0;255]
+ - vitesse moteur 2 [0;255]

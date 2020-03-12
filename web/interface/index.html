@@ -13,47 +13,91 @@
             #controller tr td {
                 border: 1px solid black;
                 border-collapse: collapse;
-                width: 100px;
-                height: 100px;
+                width: 15vh;
+                height: 15vh;
                 text-align: center;
-            } 
+            }
+
+            .imageButton {
+                width: 10vh;
+                height: 10vh;
+                padding: 2.5vh;
+                transition: all ease-in-out .1s;
+            }
+
+            .imageButton:hover {
+                width: 11vh;
+                height: 11vh;
+                padding: 2vh;
+                transition: all ease-in-out .1s;
+                cursor: pointer;
+            }
+
         </style>
+        <script>
+            function forward() {
+                console.log("forward");
+                var response = request("/?FWD");
+            }
+
+            function backwards() {
+                console.log("backwards");
+                var response = request("/?BWD");
+            }
+
+            function left() {
+                console.log("left");
+                var response = request("/?RIGHT");
+            }
+
+            function right() {
+                console.log("right");
+                var response = request("/?LEFT");
+            }
+
+            function stop() {
+                console.log("stop");
+                var response = request("/?STOP");
+            }
+
+            function request(url) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+                return response;
+            }
+        </script>
     </head>
     <body>
         <h1>Panneau de contrôle</h1>
         <table id="controller">
             <tr>
+                <td></td>
                 <td>
-
+                   <img class="imageButton" onclick="goForward()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_forward.png" alt="&uarr;">
                 </td>
-                <td>
-                   <img src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_forward.png" alt="&uarr;">
-                </td>
-                <td>
-                    
-                </td>
+                <td></td>
             </tr>
             <tr>
                 <td>
-                    &lt;
+                    <img class="imageButton" onclick="" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/turn_left.png" alt="&larr;">
                 </td>
+                <td></td>
                 <td>
-                    
-                </td>
-                <td>
-                    &gt;
+                    <img class="imageButton" onclick="" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/turn_right.png" alt="&rarr;">
                 </td>
             </tr>
             <tr>
+                <td></td>
                 <td>
-                    
+                    <img class="imageButton" onclick="" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_backwards.png" alt="&darr;">
                 </td>
-                <td>
-                    <img src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_backwards.png" alt="&darr;">
-                </td>
-                <td>
-                    
-                </td>
+                <td></td>
             </tr>
         </table>
     </body>
