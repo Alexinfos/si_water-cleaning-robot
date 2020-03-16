@@ -60,6 +60,14 @@
                 var response = request("/?STOP");
             }
 
+            function getStatus() {
+                updateStatus(request("/?STATUS"));
+            }
+
+            function updateStatus(status) {
+                document.getElementById("status").innerHTML = status;
+            }
+
             function request(url) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -79,26 +87,31 @@
             <tr>
                 <td></td>
                 <td>
-                   <img class="imageButton" onclick="goForward()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_forward.png" alt="&uarr;">
+                   <img class="imageButton" onclick="forward()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_forward.png" alt="&uarr;">
                 </td>
                 <td></td>
             </tr>
             <tr>
                 <td>
-                    <img class="imageButton" onclick="" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/turn_left.png" alt="&larr;">
+                    <img class="imageButton" onclick="left()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/turn_left.png" alt="&larr;">
                 </td>
-                <td></td>
                 <td>
-                    <img class="imageButton" onclick="" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/turn_right.png" alt="&rarr;">
+                    <img class="imageButton" onclick="stop()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/stop.png" alt="STOP">
+                </td>
+                <td>
+                    <img class="imageButton" onclick="right()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/turn_right.png" alt="&rarr;">
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <img class="imageButton" onclick="" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_backwards.png" alt="&darr;">
+                    <img class="imageButton" onclick="backwards()" src="https://raw.githubusercontent.com/Alexinfos/si_water-cleaning-robot/master/web/interface/assets/go_backwards.png" alt="&darr;">
                 </td>
                 <td></td>
             </tr>
         </table>
+        <p id ="status" onload="getStatus()">
+
+        </p>
     </body>
 </html>

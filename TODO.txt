@@ -2,7 +2,7 @@
 | < |   | > |  =>  |LEFT |STOP |RIGHT|
 |   | v |   |      |     | BWD |     |
 
-Quand on appuie sur un des 4 boutons "directionnels", on fait +1/5 (jusqu'à 5) puis on reset qd on appuie sur STOP
+Quand on appuie sur un des 4 boutons "directionnels", on fait +1/5 (jusqu'à 5/5) puis on reset qd on appuie sur STOP
 
 on gère la vitesse entre 0 et 255:   0-126 -> marche arrière
                                        127 -> arret

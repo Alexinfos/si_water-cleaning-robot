@@ -31,7 +31,7 @@ class WebServer:
         data = self.parseData(request)
         if len(data) == 0:
             file = open('/web/interface/index.html')
-            clientSocket.send(self.generateHTTP200ResponseHTML(file.read()))
+            clientSocket.send(self.generateHTTP200ResponseHMTL(file.read()))
         else:
             prevButtonState = hardware.motor.getStatus()
             if data[0] == "FWD":
@@ -44,20 +44,33 @@ class WebServer:
                 buttonState = hardware.motor.right()
             elif data[0] == "STOP":
                 buttonState = hardware.motor.stop()
+            elif data[0] == "STATUS":
+                buttonState = hardware.motor.getStatus()
             else:
-                pass
-
+                buttonState = prevButtonState
 
             if (buttonState != prevButtonState):
                 json = """{
                     "success": true,
                     "error": null,
                     "status": {
-                        "FWD": """ + buttonState.fwd + """,
-                        "BWD": """ + buttonState.bwd + """,
-                        "RIGHT": """ + buttonState.right + """,
-                        "LEFT": """ + buttonState.left + """,
-                        "STOP": """ + buttonState.stop + """
+                        "fwd": """ + buttonState.fwd + """,
+                        "bwd": """ + buttonState.bwd + """,
+                        "right": """ + buttonState.right + """,
+                        "left": """ + buttonState.left + """,
+                        "stop": """ + buttonState.stop + """
+                    }
+                }"""
+            else:
+                json = """{
+                    "success": false,
+                    "error": "Status not changed",
+                    "status": {
+                        "fwd": """ + buttonState.fwd + """,
+                        "bwd": """ + buttonState.bwd + """,
+                        "right": """ + buttonState.right + """,
+                        "left": """ + buttonState.left + """,
+                        "stop": """ + buttonState.stop + """
                     }
                 }"""
             clientSocket.send(self.generateHTTP200ResponseJSON(json))
