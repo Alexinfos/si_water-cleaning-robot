@@ -3,7 +3,7 @@
 Ceci est un projet de SI de niveau 1ère.
 Ce programme permet d'interagir avec un ESP32 depuis le navigateur web d'une autre machine.
 
-Dernière màj (v0.4): *5 mars 2020*
+Dernière màj (v0.4.5): *12 mars 2020*
 
 **ATTENTION: Ce projet n'est qu'à l'état de prototype**
 
